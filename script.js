@@ -276,10 +276,18 @@ function initBreadcrumbTrail() {
         };
     }
 
-    // Initialize bounds and update on resize
+    // Initialize bounds and keep them updated as layout stabilizes/changes
     updateHeroBounds();
+    window.addEventListener('load', updateHeroBounds);
     window.addEventListener('resize', updateHeroBounds);
 
+    // Observe hero size changes without per-mousemove layout reads
+    if (window.ResizeObserver) {
+        const heroResizeObserver = new ResizeObserver(() => {
+            updateHeroBounds();
+        });
+        heroResizeObserver.observe(hero);
+    }
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
