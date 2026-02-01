@@ -72,7 +72,7 @@ function initMobileMenu() {
 
         if (isExpanded) {
             const firstLink = mobileMenu.querySelector('a');
-            if (firstLink) setTimeout(() => firstLink.focus(), 100);
+            if (firstLink) firstLink.focus();
         } else {
             menuBtn.focus();
         }
