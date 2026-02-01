@@ -1,0 +1,4 @@
+## 2024-05-23 - Content Security Policy Pattern
+**Vulnerability:** Lack of Content Security Policy (CSP) headers left the application vulnerable to Cross-Site Scripting (XSS) and data injection attacks.
+**Learning:** This project requires specific allowances for Google Fonts and Redbubble (preconnect) in its security policy.
+**Prevention:** Maintain a strict CSP allowing only 'self' and specific external origins: `style-src 'self' https://fonts.googleapis.com`, `font-src https://fonts.gstatic.com`, `connect-src 'self' https://www.redbubble.com`.
