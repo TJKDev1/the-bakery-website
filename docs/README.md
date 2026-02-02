@@ -15,7 +15,7 @@ Welcome to The Bakery website documentation. This guide covers everything you ne
 ## Quick Start
 
 1. Clone the repository
-2. Run `npx serve .` to start a local server
+2. Run `npx serve .` to start a local server.
 3. Open `http://localhost:3000` in your browser
 
 ## Links
