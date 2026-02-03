@@ -208,6 +208,9 @@ function initParallax() {
     if (hero && heroLogoContainer) {
         let heroHeight = hero.offsetHeight;
 
+        window.addEventListener('load', () => {
+            heroHeight = hero.offsetHeight;
+        });
         window.addEventListener('resize', () => {
             heroHeight = hero.offsetHeight;
         });
