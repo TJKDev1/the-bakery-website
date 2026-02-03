@@ -313,7 +313,7 @@ function initBreadcrumbTrail() {
         });
         heroResizeObserver.observe(hero);
     }
-        function handleMouseMove(e) {
+    function handleMouseMove(e) {
         mouseX = e.clientX;
         mouseY = e.clientY;
 
