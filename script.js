@@ -414,21 +414,27 @@ function initBackToTop() {
 
     let ticking = false;
 
+    const updateBackToTopVisibility = () => {
+        if (window.scrollY > 500) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+    };
+
     // Show/hide button based on scroll position
     window.addEventListener('scroll', () => {
         if (!ticking) {
             window.requestAnimationFrame(() => {
-                if (window.scrollY > 500) {
-                    backToTopBtn.classList.add('visible');
-                } else {
-                    backToTopBtn.classList.remove('visible');
-                }
+                updateBackToTopVisibility();
                 ticking = false;
             });
             ticking = true;
         }
     }, { passive: true });
 
+    // Ensure correct initial visibility on load
+    updateBackToTopVisibility();
     // Scroll to top on click
     backToTopBtn.addEventListener('click', () => {
         window.scrollTo({
