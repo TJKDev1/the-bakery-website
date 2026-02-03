@@ -206,11 +206,16 @@ function initParallax() {
 
     // Apply parallax to container instead of logo to avoid CSS animation conflict
     if (hero && heroLogoContainer) {
+        let heroHeight = hero.offsetHeight;
+
+        window.addEventListener('resize', () => {
+            heroHeight = hero.offsetHeight;
+        });
+
         window.addEventListener('scroll', () => {
             if (!ticking) {
                 window.requestAnimationFrame(() => {
                     const scrolled = window.pageYOffset;
-                    const heroHeight = hero.offsetHeight;
                     
                     if (scrolled < heroHeight) {
                         heroLogoContainer.style.transform = `translateY(${scrolled * 0.3}px)`;
