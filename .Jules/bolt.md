@@ -9,3 +9,7 @@
 ## 2026-02-02 - Oversized Icon Assets
 **Learning:** Identified multiple icon assets in `icons/` that were 100KB-300KB each but displayed at only 40px. This wasted ~1.5MB of bandwidth.
 **Action:** Resize localized assets to their maximum display dimensions (plus density buffer) rather than serving source-quality files.
+
+## 2026-02-03 - Scroll Handler Optimization
+- **Problem:** Reading layout properties (e.g., `offsetHeight`, `scrollTop`) inside a `scroll` event listener or `requestAnimationFrame` loop forces the browser to recalculate layout (reflow) on every frame, causing "layout thrashing" and poor performance.
+- **Solution:** Cache these values in variables outside the loop and update them only when necessary (e.g., inside a `resize` event listener). This ensures the loop only performs cheap read/write operations (like setting `transform`).
