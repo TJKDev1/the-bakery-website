@@ -333,25 +333,14 @@ function initBreadcrumbTrail() {
     }
 
     // Optimization: Dynamically attach/detach mousemove listener based on viewport visibility to reduce overhead.
-    let isMouseMoveListenerAttached = false;
     if (window.IntersectionObserver) {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    if (!isMouseMoveListenerAttached) {
-                        document.addEventListener('mousemove', handleMouseMove);
-                        isMouseMoveListenerAttached = true;
-                    }
+                    document.addEventListener('mousemove', handleMouseMove);
                 } else {
-                    if (isMouseMoveListenerAttached) {
-                        document.removeEventListener('mousemove', handleMouseMove);
-                        isMouseMoveListenerAttached = false;
-                    }
+                    document.removeEventListener('mousemove', handleMouseMove);
                     isInHero = false;
-                    if (animationId) {
-                        cancelAnimationFrame(animationId);
-                        animationId = null;
-                    }
                 }
             });
         }, { rootMargin: '100px' }); // Add a small margin to start tracking slightly before/after
