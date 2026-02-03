@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
     initParallax();
     initBreadcrumbTrail();
+    initBackToTop();
 });
 
 /* ===================================
@@ -400,4 +401,46 @@ function initBreadcrumbTrail() {
 
         animationId = requestAnimationFrame(updateTrail);
     }
+}
+
+/* ===================================
+   Back to Top Button
+   =================================== */
+function initBackToTop() {
+    const backToTopBtn = document.getElementById('back-to-top');
+    const skipLink = document.querySelector('.skip-link');
+
+    if (!backToTopBtn) return;
+
+    let ticking = false;
+
+    // Show/hide button based on scroll position
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                if (window.scrollY > 500) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+
+    // Scroll to top on click
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+        // Move focus to skip link for accessibility
+        if (skipLink) {
+            skipLink.focus();
+        } else {
+            document.body.focus(); // Fallback
+        }
+    });
 }
