@@ -21,3 +21,7 @@
 ## 2026-02-05 - Conditional Event Listener Attachment
 **Learning:** Attaching heavy event listeners (like `mousemove` for visual effects) globally consumes resources even when the effect is not visible.
 **Action:** Use `IntersectionObserver` to dynamically attach and detach event listeners based on the visibility of the target element.
+
+## 2026-02-06 - Global Index Animation Delay
+**Learning:** Assigning transition delays based on the global index of elements in `querySelectorAll` causes massive delays (1s+) for elements at the bottom of the page, making the UI feel unresponsive.
+**Action:** Use the index of the `IntersectionObserver` entry batch to calculate delays relative to the group of elements currently entering the viewport.

@@ -152,11 +152,14 @@ function initScrollAnimations() {
     };
 
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-                observer.unobserve(entry.target);
-            }
+        const intersectingEntries = entries.filter(entry => entry.isIntersecting);
+
+        intersectingEntries.forEach((entry, index) => {
+            // OPTIMIZATION: Use batch-relative delay instead of global index delay
+            // This prevents massive delays (e.g. 2s+) for elements at the bottom of the page
+            entry.target.style.transitionDelay = `${index * 0.1}s`;
+            entry.target.classList.add('animate-in');
+            observer.unobserve(entry.target);
         });
     }, observerOptions);
 
@@ -165,10 +168,11 @@ function initScrollAnimations() {
         '.about-content, .product-card, .contact-card, .section-header'
     );
 
-    animateElements.forEach((el, index) => {
+    animateElements.forEach((el) => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
-        el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        // Set base transition; delay is applied dynamically in the observer
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
 }
