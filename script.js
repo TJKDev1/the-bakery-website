@@ -145,6 +145,11 @@ function createMobileMenu(navLinks, navCta) {
    Scroll Animations
    =================================== */
 function initScrollAnimations() {
+    // Respect reduced motion preference
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+    }
+
     // Intersection Observer for fade-in animations
     const observerOptions = {
         threshold: 0.1,
@@ -188,9 +193,11 @@ function initSmoothScroll() {
                 const elementPosition = targetElement.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
+                const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
                 window.scrollTo({
                     top: offsetPosition,
-                    behavior: 'smooth'
+                    behavior: prefersReducedMotion ? 'auto' : 'smooth'
                 });
             }
         });
@@ -201,6 +208,11 @@ function initSmoothScroll() {
     Parallax Effect on Hero
     =================================== */
 function initParallax() {
+    // Respect reduced motion preference
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+    }
+
     const hero = document.querySelector('.hero');
     const heroLogoContainer = document.querySelector('.hero-logo-container');
     let ticking = false;
