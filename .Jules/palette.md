@@ -13,3 +13,7 @@ This journal tracks critical UX and accessibility learnings.
 ## 2026-10-25 - Back to Top Focus Management
 **Learning:** "Back to Top" buttons can trap keyboard focus at the bottom of the page, requiring users to tab backward through the entire document.
 **Action:** Couple `window.scrollTo(0,0)` with explicit focus placement on the first interactive element (e.g., `.skip-link`) to reset the navigation context.
+
+## 2026-10-26 - Respecting Reduced Motion in JS Animations
+**Learning:** JavaScript-driven animations often override CSS reduced-motion preferences, forcing motion on users who need it disabled.
+**Action:** Explicitly check `window.matchMedia('(prefers-reduced-motion: reduce)').matches` in JS animation initialization functions and return early or disable motion logic.
