@@ -188,9 +188,21 @@ function initSmoothScroll() {
                 const elementPosition = targetElement.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
+                const isSkipLink = this.classList.contains('skip-link');
+
+                // For skip link, move focus immediately
+                if (isSkipLink) {
+                    targetElement.focus({preventScroll: true});
+                }
+
+                // Skip link should be instant, others depend on preference
+                const behavior = isSkipLink ||
+                               (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+                               ? 'auto' : 'smooth';
+
                 window.scrollTo({
                     top: offsetPosition,
-                    behavior: 'smooth'
+                    behavior: behavior
                 });
             }
         });

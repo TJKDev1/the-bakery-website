@@ -13,3 +13,7 @@ This journal tracks critical UX and accessibility learnings.
 ## 2026-10-25 - Back to Top Focus Management
 **Learning:** "Back to Top" buttons can trap keyboard focus at the bottom of the page, requiring users to tab backward through the entire document.
 **Action:** Couple `window.scrollTo(0,0)` with explicit focus placement on the first interactive element (e.g., `.skip-link`) to reset the navigation context.
+
+## 2026-10-26 - Skip Link Smooth Scroll Conflict
+**Learning:** When JavaScript intercepts all anchor clicks for smooth scrolling, it breaks the default browser behavior of "Skip to content" links, often leaving focus stranded at the top.
+**Action:** Explicitly detect skip links in scroll handlers to apply `tabindex="-1"`, force focus to the target, and use `behavior: 'auto'` for instant navigation.
