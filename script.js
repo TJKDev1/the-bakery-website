@@ -152,8 +152,11 @@ function initScrollAnimations() {
     };
 
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
+                // Apply staggered delay based on the index in the current batch
+                const delay = index * 0.1;
+                entry.target.style.transition = `opacity 0.6s ease ${delay}s, transform 0.6s ease ${delay}s`;
                 entry.target.classList.add('animate-in');
                 observer.unobserve(entry.target);
             }
@@ -165,10 +168,9 @@ function initScrollAnimations() {
         '.about-content, .product-card, .contact-card, .section-header'
     );
 
-    animateElements.forEach((el, index) => {
+    animateElements.forEach((el) => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
-        el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
         observer.observe(el);
     });
 }

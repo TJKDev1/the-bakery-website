@@ -21,3 +21,7 @@
 ## 2026-02-05 - Conditional Event Listener Attachment
 **Learning:** Attaching heavy event listeners (like `mousemove` for visual effects) globally consumes resources even when the effect is not visible.
 **Action:** Use `IntersectionObserver` to dynamically attach and detach event listeners based on the visibility of the target element.
+
+## 2026-02-06 - Transition Delay Calculation on Long Pages
+**Learning:** Calculating `transition-delay` based on the global index of elements in a list causes excessive delays for elements further down the page (e.g., footer elements waiting 2s+ to appear).
+**Action:** Calculate delay based on the index within the `IntersectionObserver` entry batch. This ensures elements stagger relative to when they appear, not their position in the DOM.
