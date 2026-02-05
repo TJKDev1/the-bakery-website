@@ -1459,6 +1459,10 @@ body {
     top: 0;
 }
 
+#main-content:focus {
+    outline: none;
+}
+
 /* ===================================
    Breadcrumb Cursor Trail (Hero Only)
    =================================== */
