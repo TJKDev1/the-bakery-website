@@ -13,3 +13,7 @@ This journal tracks critical UX and accessibility learnings.
 ## 2026-10-25 - Back to Top Focus Management
 **Learning:** "Back to Top" buttons can trap keyboard focus at the bottom of the page, requiring users to tab backward through the entire document.
 **Action:** Couple `window.scrollTo(0,0)` with explicit focus placement on the first interactive element (e.g., `.skip-link`) to reset the navigation context.
+
+## 2026-10-27 - Scroll Spy Implementation
+**Learning:** For single-page sites with sticky headers, `IntersectionObserver` can be finicky for highlighting active sections. Direct scroll position calculation with a header offset provides a more predictable experience.
+**Action:** Implement scroll spy using a throttled `scroll` listener that compares `window.scrollY` against section offsets minus header height.
