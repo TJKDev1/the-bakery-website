@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initParallax();
     initBreadcrumbTrail();
     initBackToTop();
+    initScrollSpy();
 });
 
 /* ===================================
@@ -45,6 +46,58 @@ function initNavbar() {
             ticking = true;
         }
     });
+}
+
+/* ===================================
+   Scroll Spy
+   =================================== */
+function initScrollSpy() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    if (sections.length === 0 || navLinks.length === 0) return;
+
+    let ticking = false;
+
+    function updateActiveLink() {
+        let currentSection = '';
+        const scrollPosition = window.scrollY;
+
+        // Find the current section
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            // Adjustment for fixed header height (approx 80px + breathing room)
+            if (scrollPosition >= (sectionTop - 150)) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+
+        // If at the bottom of the page, highlight the last section
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+           const lastSection = sections[sections.length - 1];
+           if (lastSection) currentSection = lastSection.getAttribute('id');
+        }
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${currentSection}`) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                updateActiveLink();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+
+    // Initial check
+    updateActiveLink();
 }
 
 /* ===================================
