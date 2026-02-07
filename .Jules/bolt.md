@@ -21,3 +21,7 @@
 ## 2026-02-05 - Conditional Event Listener Attachment
 **Learning:** Attaching heavy event listeners (like `mousemove` for visual effects) globally consumes resources even when the effect is not visible.
 **Action:** Use `IntersectionObserver` to dynamically attach and detach event listeners based on the visibility of the target element.
+
+## 2026-02-07 - Cumulative Scroll Animation Delays
+**Learning:** Index-based delays in IntersectionObserver setup create excessive wait times for elements far down the page (e.g., 10th element waits 1s even if it just appeared).
+**Action:** Calculate animation delays relative to the index within the *intersecting batch* of entries, ensuring a consistent cascade effect regardless of scroll position.

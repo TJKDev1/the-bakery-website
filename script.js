@@ -152,10 +152,15 @@ function initScrollAnimations() {
     };
 
     const observer = new IntersectionObserver((entries) => {
+        let delayIndex = 0;
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                // Optimization: Calculate delay based on batch index, not global index
+                // This prevents massive delays for elements further down the page
+                entry.target.style.transitionDelay = `${delayIndex * 0.1}s`;
                 entry.target.classList.add('animate-in');
                 observer.unobserve(entry.target);
+                delayIndex++;
             }
         });
     }, observerOptions);
@@ -165,10 +170,11 @@ function initScrollAnimations() {
         '.about-content, .product-card, .contact-card, .section-header'
     );
 
-    animateElements.forEach((el, index) => {
+    animateElements.forEach((el) => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
-        el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        // Set base transition without delay - delay is added dynamically in observer
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
 }
