@@ -145,6 +145,9 @@ function createMobileMenu(navLinks, navCta) {
    Scroll Animations
    =================================== */
 function initScrollAnimations() {
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // Intersection Observer for fade-in animations
     const observerOptions = {
         threshold: 0.1,
@@ -152,8 +155,13 @@ function initScrollAnimations() {
     };
 
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
+                // Calculate delay based on batch index to stagger animations nicely
+                // Elements appearing together will have 0s, 0.1s, 0.2s etc delay
+                const delay = prefersReducedMotion ? 0 : index * 0.1;
+
+                entry.target.style.transitionDelay = `${delay}s`;
                 entry.target.classList.add('animate-in');
                 observer.unobserve(entry.target);
             }
@@ -165,10 +173,11 @@ function initScrollAnimations() {
         '.about-content, .product-card, .contact-card, .section-header'
     );
 
-    animateElements.forEach((el, index) => {
+    animateElements.forEach((el) => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
-        el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        // Set base transition without delay
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
 }

@@ -13,3 +13,7 @@ This journal tracks critical UX and accessibility learnings.
 ## 2026-10-25 - Back to Top Focus Management
 **Learning:** "Back to Top" buttons can trap keyboard focus at the bottom of the page, requiring users to tab backward through the entire document.
 **Action:** Couple `window.scrollTo(0,0)` with explicit focus placement on the first interactive element (e.g., `.skip-link`) to reset the navigation context.
+
+## 2026-02-07 - Scroll Animation Staggering
+**Learning:** Hardcoding transition delays based on global DOM index causes excessive waiting times for elements further down the page, making the UI feel broken.
+**Action:** Calculate stagger delays dynamically within the `IntersectionObserver` callback using the `entries` array index. This ensures elements appearing together stagger nicely, while subsequent elements appear immediately.
