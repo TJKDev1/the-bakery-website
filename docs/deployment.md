@@ -9,7 +9,8 @@ This guide explains how to deploy changes to The Bakery website.
 The website is hosted on **GitHub Pages**.
 
 - **Repository**: <https://github.com/TheOfficialBakery/the-bakery-website>
-- **Live URL**: <https://theofficialbakery.github.io/the-bakery-website/>
+- **Live URL**: <https://the-bakery.co/>
+- **GitHub Pages URL**: <https://theofficialbakery.github.io/the-bakery-website/>
 
 ---
 
@@ -178,7 +179,8 @@ git push
 
 | Environment | URL | Branch |
 |-------------|-----|--------|
-| Production | theofficialbakery.github.io/the-bakery-website | master |
+| Production | the-bakery.co | master |
+| GitHub Pages | theofficialbakery.github.io/the-bakery-website | master |
 | Local Dev | localhost:3000 | any |
 
 ---

@@ -7,22 +7,29 @@ Website/
 ├── script.js           # JavaScript functionality
 ├── Original.png        # Logo image
 ├── CNAME               # Custom domain config (the-bakery.co)
-├── AGENTS.md           # AI coding agent guidelines
+├── _headers            # Security headers (for Netlify/Cloudflare)
+├── netlify.toml        # Netlify-specific header config
 ├── .nojekyll           # Tells GitHub Pages to skip Jekyll
+├── .github/
+│   └── workflows/
+│       └── site-quality.yml  # CI quality checks and Lighthouse
+├── scripts/
+│   └── check-site-quality.py # Custom static quality checks
+├── lighthouserc.json   # Lighthouse CI configuration
 ├── icons/              # Custom generated icons
-│   ├── icon_fresh_memes_*.png
-│   ├── icon_premium_quality_*.png
-│   ├── icon_perfect_gifts_*.png
-│   ├── icon_tshirt_*.png
-│   ├── icon_mug_*.png
-│   ├── icon_stickers_*.png
-│   ├── icon_magnet_*.png
-│   ├── icon_phone_case_*.png
-│   ├── icon_wall_art_*.png
-│   ├── icon_bag_*.png
-│   ├── icon_email_*.png
-│   ├── icon_shop_*.png
-│   └── icon_social_*.png
+│   ├── icon_fresh_memes_*.webp
+│   ├── icon_premium_quality_*.webp
+│   ├── icon_perfect_gifts_*.webp
+│   ├── icon_tshirt_*.webp
+│   ├── icon_mug_*.webp
+│   ├── icon_stickers_*.webp
+│   ├── icon_magnet_*.webp
+│   ├── icon_phone_case_*.webp
+│   ├── icon_wall_art_*.webp
+│   ├── icon_bag_*.webp
+│   ├── icon_email_*.webp
+│   ├── icon_shop_*.webp
+│   └── icon_social_*.webp
 └── docs/               # Documentation
     ├── README.md
     ├── project-overview.md
@@ -77,6 +84,7 @@ All styling organized in sections:
 JavaScript functionality:
 
 - Navbar scroll effects
+- Centralized external URL map (via `data-link-key`)
 - Mobile menu toggle (dynamically reads nav links from HTML)
 - Smooth scrolling
 - Intersection Observer animations
@@ -85,15 +93,11 @@ JavaScript functionality:
 
 ### icons/
 
-Custom generated PNG icons in the brand's warm golden-brown color palette. Each icon is approximately 400-500KB and sized for web use.
+Optimized WebP icons in the brand's warm golden-brown color palette.
 
 ### CNAME
 
 Contains the custom domain: `the-bakery.co`
-
-### AGENTS.md
-
-Guidelines for AI coding agents working on this project.
 
 ### .nojekyll
 

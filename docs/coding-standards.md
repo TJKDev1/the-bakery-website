@@ -232,18 +232,19 @@ window.addEventListener('scroll', () => {
 ### File Naming
 
 ```
-icon_[descriptive-name]_[timestamp].png
+icon_[descriptive-name]_[timestamp].webp
 ```
 
-Example: `icon_fresh_memes_1769729644932.png`
+Example: `icon_fresh_memes_1769729644932.webp`
 
 ### Formats
 
 | Format | Use for |
 |--------|---------|
-| PNG | Icons, logos (need transparency) |
+| WebP | Preferred for icons and logos (smaller size) |
+| PNG | Optional source/export format |
 | JPG | Photos (if any added later) |
-| WebP | Modern browsers (optional optimization) |
+
 
 ### Sizes
 

@@ -17,6 +17,7 @@
     /* Cream/Beige Tones */
     --cream-dark: #E8DCC8;
     --cream-light: #F5EEE0;
+    --cream-pale: #FBF6EC;
     --cream-white: #FDF9F3;
 
     /* Dark Tones */
@@ -70,6 +71,10 @@ body {
     color: var(--dark-brown);
     line-height: 1.6;
     overflow-x: hidden;
+}
+
+body.menu-open {
+    overflow: hidden;
 }
 
 .container {

@@ -23,6 +23,7 @@ Background colors that complement the primary palette.
 |------|----------|-----|-------|
 | Cream Dark | `--cream-dark` | `#E8DCC8` | Secondary backgrounds |
 | Cream Light | `--cream-light` | `#F5EEE0` | Card backgrounds |
+| Cream Pale | `--cream-pale` | `#FBF6EC` | Subtle icon gradients |
 | Cream White | `--cream-white` | `#FDF9F3` | Page backgrounds |
 
 ### Dark Colors
@@ -135,7 +136,7 @@ Shadows use brand colors for a warmer feel:
 All icons should:
 
 - Use the warm golden-brown color palette
-- Be PNG format with transparent or white background
+- Be WebP format with transparent or white background
 - Be sized at least 400x400px source
 - Display at these sizes:
   - Feature icons: 40x40px

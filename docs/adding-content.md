@@ -11,11 +11,11 @@ This guide explains how to add or modify content on The Bakery website.
 Generate or create a new icon that:
 
 - Uses the golden-brown color palette (#C4A35A, #8B6914, #D4A843)
-- Is PNG format with white/transparent background
+- Is WebP format with white/transparent background
 - Is at least 400x400px source size
 - Matches the minimalist style of existing icons
 
-Save to: `icons/icon_[productname]_[timestamp].png`
+Save to: `icons/icon_[productname]_[timestamp].webp`
 
 ### Step 2: Find the Redbubble Category Code
 
@@ -39,7 +39,7 @@ In `index.html`, find the `<div class="products-grid">` section and add:
 <a href="https://www.redbubble.com/people/the-bakery-shop/shop?artistUserName=the-bakery-shop&asc=u&iaCode=[IACODE]"
     target="_blank" rel="noopener noreferrer" class="product-card">
     <div class="product-icon">
-        <img src="icons/icon_[name].png" alt="[Product Name]">
+        <img src="icons/icon_[name].webp" alt="[Product Name]" loading="lazy" width="52" height="52">
     </div>
     <h3>[Product Name]</h3>
     <p>[Catchy description, keep it short]</p>
@@ -56,7 +56,7 @@ In `index.html`, find the `<div class="about-features">` section and add:
 ```html
 <div class="feature">
     <div class="feature-icon">
-        <img src="icons/icon_[name].png" alt="[Feature Name]">
+        <img src="icons/icon_[name].webp" alt="[Feature Name]" loading="lazy" width="40" height="40">
     </div>
     <div class="feature-text">
         <h4>[Feature Title]</h4>
@@ -74,7 +74,7 @@ In `index.html`, find the `<div class="contact-info">` section and add:
 ```html
 <div class="contact-card">
     <div class="contact-icon">
-        <img src="icons/icon_[type].png" alt="[Type]">
+        <img src="icons/icon_[type].webp" alt="[Type]" loading="lazy" width="48" height="48">
     </div>
     <h4>[Platform/Method]</h4>
     <a href="[full URL]" target="_blank" rel="noopener noreferrer">@[handle or display text]</a>
@@ -148,22 +148,22 @@ Edit in `index.html`:
 
 ### Redbubble Shop Links
 
-Search for `redbubble.com/people/the-bakery-shop` and update all occurrences.
+Update the URL constants in `script.js` inside the `LINKS` object.
 
 ### Social Media Links
 
-Update the TikTok link in the contact section:
+Update the TikTok URL in `script.js` in the `LINKS.tiktok` entry.
 
-```html
-<a href="https://www.tiktok.com/@thebakerytiktok" target="_blank" rel="noopener noreferrer">@thebakerytiktok</a>
+```javascript
+tiktok: 'https://www.tiktok.com/@thebakerytiktok'
 ```
 
 ### Email
 
-Update the mailto link:
+Update the email URL in `script.js` in the `LINKS.email` entry:
 
-```html
-<a href="mailto:TheOfficialBakery@proton.me">TheOfficialBakery@proton.me</a>
+```javascript
+email: 'mailto:TheOfficialBakery@proton.me'
 ```
 
 ---

@@ -16,7 +16,12 @@ Welcome to The Bakery website documentation. This guide covers everything you ne
 
 1. Clone the repository
 2. Run `npx serve .` to start a local server.
-4. Open `http://localhost:3000` in your browser
+3. Open `http://localhost:3000` in your browser
+
+## Quality Checks
+
+- Run `python3 scripts/check-site-quality.py` for static quality checks
+- Run `node --check script.js` for JavaScript syntax validation
 
 ## Links
 

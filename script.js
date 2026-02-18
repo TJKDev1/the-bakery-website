@@ -2,8 +2,21 @@
    The Bakery Shop - JavaScript
    =================================== */
 
+const LINKS = Object.freeze({
+    'shop-home': 'https://www.redbubble.com/people/the-bakery-shop/',
+    'shop-tees': 'https://www.redbubble.com/people/the-bakery-shop/shop?artistUserName=the-bakery-shop&asc=u&iaCode=u-tees',
+    'shop-mugs': 'https://www.redbubble.com/people/the-bakery-shop/shop?artistUserName=the-bakery-shop&asc=u&iaCode=u-mugs',
+    'shop-stickers': 'https://www.redbubble.com/people/the-bakery-shop/shop?artistUserName=the-bakery-shop&asc=u&iaCode=all-stickers',
+    'shop-magnets': 'https://www.redbubble.com/people/the-bakery-shop/shop?artistUserName=the-bakery-shop&asc=u&iaCode=u-die-cut-magnet',
+    'shop-phone-cases': 'https://www.redbubble.com/people/the-bakery-shop/shop?artistUserName=the-bakery-shop&asc=u&iaCode=u-phone-cases',
+    'shop-wall-art': 'https://www.redbubble.com/people/the-bakery-shop/shop?artistUserName=the-bakery-shop&asc=u&iaCode=u-prints',
+    tiktok: 'https://www.tiktok.com/@thebakerytiktok',
+    email: 'mailto:TheOfficialBakery@proton.me'
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize all features
+    initLinkConfig();
     initNavbar();
     initMobileMenu();
     initScrollAnimations();
@@ -13,11 +26,23 @@ document.addEventListener('DOMContentLoaded', () => {
     initBackToTop();
 });
 
+function initLinkConfig() {
+    document.querySelectorAll('[data-link-key]').forEach((link) => {
+        const key = link.getAttribute('data-link-key');
+        const href = LINKS[key];
+
+        if (!href) return;
+        link.setAttribute('href', href);
+    });
+}
+
 /* ===================================
    Navbar Scroll Effect
    =================================== */
 function initNavbar() {
     const navbar = document.querySelector('.navbar');
+
+    if (!navbar) return;
 
     let ticking = false;
 
@@ -44,13 +69,14 @@ function initNavbar() {
             });
             ticking = true;
         }
-    });
+    }, { passive: true });
 }
 
 /* ===================================
     Mobile Menu Toggle
     =================================== */
 let mobileMenuInitialized = false;
+const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 function initMobileMenu() {
     const menuBtn = document.querySelector('.mobile-menu-btn');
@@ -65,46 +91,88 @@ function initMobileMenu() {
 
     // Create mobile menu once during initialization
     let mobileMenu = document.querySelector('.mobile-menu');
-    
+
     if (!mobileMenu) {
         mobileMenu = createMobileMenu(navLinks, navCta);
+        mobileMenu.setAttribute('aria-hidden', 'true');
         document.body.appendChild(mobileMenu);
-        
+
         // Attach event listeners once during creation
-        mobileMenu.querySelectorAll('a').forEach(link => {
+        mobileMenu.querySelectorAll('a').forEach((link) => {
             link.addEventListener('click', () => {
                 closeMenu();
             });
         });
     }
 
+    let lastFocusedElement = null;
+
+    function getFocusableElements() {
+        return Array.from(mobileMenu.querySelectorAll(FOCUSABLE_SELECTOR)).filter(
+            (el) => !el.hasAttribute('disabled')
+        );
+    }
+
+    function handleMenuKeydown(e) {
+        if (e.key === 'Escape') {
+            closeMenu();
+            return;
+        }
+
+        if (e.key !== 'Tab') return;
+
+        const focusableElements = getFocusableElements();
+        if (!focusableElements.length) return;
+
+        const first = focusableElements[0];
+        const last = focusableElements[focusableElements.length - 1];
+        const isShiftTab = e.shiftKey;
+
+        if (!isShiftTab && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+        } else if (isShiftTab && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+        }
+    }
+
+    function openMenu() {
+        lastFocusedElement = document.activeElement;
+        mobileMenu.classList.add('active');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        menuBtn.classList.add('active');
+        menuBtn.setAttribute('aria-expanded', 'true');
+        document.body.classList.add('menu-open');
+        document.addEventListener('keydown', handleMenuKeydown);
+
+        const firstLink = mobileMenu.querySelector('a');
+        if (firstLink) firstLink.focus();
+    }
+
     function closeMenu() {
         if (mobileMenu.classList.contains('active')) {
             mobileMenu.classList.remove('active');
+            mobileMenu.setAttribute('aria-hidden', 'true');
             menuBtn.classList.remove('active');
             menuBtn.setAttribute('aria-expanded', 'false');
-            menuBtn.focus();
+            document.body.classList.remove('menu-open');
+            document.removeEventListener('keydown', handleMenuKeydown);
+
+            if (lastFocusedElement && document.contains(lastFocusedElement)) {
+                lastFocusedElement.focus();
+            } else {
+                menuBtn.focus();
+            }
         }
     }
 
     // Toggle menu on button click
     menuBtn.addEventListener('click', () => {
-        const isExpanded = mobileMenu.classList.toggle('active');
-        menuBtn.classList.toggle('active');
-        menuBtn.setAttribute('aria-expanded', isExpanded);
-
-        if (isExpanded) {
-            const firstLink = mobileMenu.querySelector('a');
-            if (firstLink) firstLink.focus();
-        } else {
-            menuBtn.focus();
-        }
-    });
-
-    // Close on Escape
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+        if (mobileMenu.classList.contains('active')) {
             closeMenu();
+        } else {
+            openMenu();
         }
     });
 }
@@ -116,19 +184,19 @@ function createMobileMenu(navLinks, navCta) {
     const mobileMenu = document.createElement('div');
     mobileMenu.className = 'mobile-menu';
     mobileMenu.id = 'mobile-nav';
-    
+
     // Build links dynamically from existing nav
     let linksHtml = '';
     if (navLinks) {
-        navLinks.querySelectorAll('a').forEach(link => {
+        navLinks.querySelectorAll('a').forEach((link) => {
             linksHtml += `<li><a href="${link.getAttribute('href')}">${link.textContent}</a></li>`;
         });
     }
-    
+
     // Get CTA link from existing nav
     const ctaHref = navCta ? navCta.getAttribute('href') : 'https://www.redbubble.com/people/the-bakery-shop/';
     const ctaText = navCta ? navCta.textContent.trim() : 'Visit Shop';
-    
+
     mobileMenu.innerHTML = `
         <div class="mobile-menu-content">
             <ul class="mobile-nav-links">
@@ -179,10 +247,18 @@ function initScrollAnimations() {
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
+            if (this.classList.contains('skip-link')) {
+                return;
+            }
+
             e.preventDefault();
             const targetId = this.getAttribute('href');
+            if (!targetId || targetId === '#') {
+                return;
+            }
+
             const targetElement = document.querySelector(targetId);
-            
+
             if (targetElement) {
                 const headerOffset = 80;
                 const elementPosition = targetElement.getBoundingClientRect().top;
@@ -220,7 +296,7 @@ function initParallax() {
             if (!ticking) {
                 window.requestAnimationFrame(() => {
                     const scrolled = window.pageYOffset;
-                    
+
                     if (scrolled < heroHeight) {
                         heroLogoContainer.style.transform = `translateY(${scrolled * 0.3}px)`;
                     }
@@ -228,7 +304,7 @@ function initParallax() {
                 });
                 ticking = true;
             }
-        });
+        }, { passive: true });
     }
 }
 

@@ -11,8 +11,8 @@ This document describes each component of the website and how to modify them.
 ```html
 <nav class="navbar">
     <div class="nav-container">
-        <a href="#" class="nav-logo">
-            <img src="Original.png" alt="The Bakery Logo" class="nav-logo-img">
+        <a href="#home" class="nav-logo">
+            <img src="logo-small.webp" alt="The Bakery Logo" class="nav-logo-img">
         </a>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
@@ -20,7 +20,7 @@ This document describes each component of the website and how to modify them.
             <li><a href="#shop">Shop</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        <a href="[REDBUBBLE_URL]" target="_blank" rel="noopener noreferrer" class="nav-cta">Visit Shop</a>
+        <a href="[REDBUBBLE_URL]" data-link-key="shop-home" target="_blank" rel="noopener noreferrer" class="nav-cta">Visit Shop</a>
         <button class="mobile-menu-btn" aria-label="Toggle menu">
             <span></span><span></span><span></span>
         </button>
@@ -34,6 +34,7 @@ This document describes each component of the website and how to modify them.
 - Mobile menu button visible only on screens < 768px
 - Nav links hidden on mobile (replaced by hamburger menu)
 - Mobile menu dynamically reads links from `.nav-links` and `.nav-cta` elements
+- External URLs are centrally managed in `script.js` (`LINKS` map + `data-link-key`)
 
 ### Mobile Menu
 
@@ -58,7 +59,7 @@ The mobile menu is created dynamically via JavaScript and styled in CSS. It read
     <div class="hero-bg"></div>
     <div class="hero-content">
         <div class="hero-logo-container">
-            <img src="Original.png" alt="The Bakery" class="hero-logo">
+            <img src="logo-medium.webp" alt="The Bakery" class="hero-logo">
         </div>
         <h1 class="hero-title">Welcome to <span>The Bakery</span></h1>
         <p class="hero-tagline">We Don't Cook We Bake!</p>
@@ -98,7 +99,7 @@ The mobile menu is created dynamically via JavaScript and styled in CSS. It read
             </div>
             <div class="about-image">
                 <div class="image-frame">
-                    <img src="Original.png" alt="The Bakery Logo" class="about-logo">
+                    <img src="logo-medium.webp" alt="The Bakery Logo" class="about-logo">
                 </div>
                 <div class="floating-badge">Est. 2026</div>
             </div>
@@ -112,7 +113,7 @@ The mobile menu is created dynamically via JavaScript and styled in CSS. It read
 ```html
 <div class="feature">
     <div class="feature-icon">
-        <img src="icons/icon_[name].png" alt="[Alt text]">
+        <img src="icons/icon_[name].webp" alt="[Alt text]" loading="lazy" width="40" height="40">
     </div>
     <div class="feature-text">
         <h4>[Title]</h4>
@@ -150,7 +151,7 @@ The mobile menu is created dynamically via JavaScript and styled in CSS. It read
 ```html
 <a href="[REDBUBBLE_CATEGORY_URL]" target="_blank" rel="noopener noreferrer" class="product-card">
     <div class="product-icon">
-        <img src="icons/icon_[name].png" alt="[Product]">
+        <img src="icons/icon_[name].webp" alt="[Product]" loading="lazy" width="52" height="52">
     </div>
     <h3>[Product Name]</h3>
     <p>[Description]</p>
@@ -162,12 +163,12 @@ The mobile menu is created dynamically via JavaScript and styled in CSS. It read
 
 | Product | Icon File | Redbubble iaCode |
 |---------|-----------|------------------|
-| T-Shirts | icon_tshirt_*.png | u-tees |
-| Mugs | icon_mug_*.png | u-mugs |
-| Stickers | icon_stickers_*.png | all-stickers |
-| Magnets | icon_magnet_*.png | u-die-cut-magnet |
-| Phone Cases | icon_phone_case_*.png | u-phone-cases |
-| Wall Art | icon_wall_art_*.png | u-prints |
+| T-Shirts | icon_tshirt_*.webp | u-tees |
+| Mugs | icon_mug_*.webp | u-mugs |
+| Stickers | icon_stickers_*.webp | all-stickers |
+| Magnets | icon_magnet_*.webp | u-die-cut-magnet |
+| Phone Cases | icon_phone_case_*.webp | u-phone-cases |
+| Wall Art | icon_wall_art_*.webp | u-prints |
 
 ---
 
@@ -211,7 +212,7 @@ The mobile menu is created dynamically via JavaScript and styled in CSS. It read
 ```html
 <div class="contact-card">
     <div class="contact-icon">
-        <img src="icons/icon_[name].png" alt="[Type]">
+        <img src="icons/icon_[name].webp" alt="[Type]" loading="lazy" width="48" height="48">
     </div>
     <h4>[Title]</h4>
     <a href="[link]">[Display text]</a>
@@ -231,14 +232,14 @@ The mobile menu is created dynamically via JavaScript and styled in CSS. It read
     <div class="container">
         <div class="footer-content">
             <div class="footer-brand">
-                <img src="Original.png" alt="The Bakery" class="footer-logo">
+                <img src="logo-small.webp" alt="The Bakery" class="footer-logo">
                 <p class="footer-tagline">We Don't Cook We Bake!</p>
             </div>
             <div class="footer-links">
                 <div class="footer-column">
                     <h4>[Column title]</h4>
                     <ul>
-                        <li><a href="#">[Link]</a></li>
+                        <li><a href="[LINK]">[Link]</a></li>
                     </ul>
                 </div>
             </div>

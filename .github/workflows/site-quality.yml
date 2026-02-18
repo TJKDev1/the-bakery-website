@@ -1,0 +1,43 @@
+name: Site Quality
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate JavaScript syntax
+        run: node --check script.js
+
+      - name: Run static quality checks
+        run: python3 scripts/check-site-quality.py
+
+  lighthouse:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run Lighthouse CI
+        env:
+          LHCI_CHROMIUM_FLAGS: "--no-sandbox --disable-dev-shm-usage"
+        run: npx -y @lhci/cli@0.14.x autorun --config=./lighthouserc.json
